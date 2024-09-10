@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>No File Uploaded</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        alert("No file uploaded yet. Please upload a file to analyze.");
+        window.location.href = "{{ url_for('upload_file') }}";
+      });
+    </script>
+  </head>
+  <body></body>
+</html>

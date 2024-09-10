@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block title %} eTracing V.1 - Analysis {% endblock
+%} {% block content %}
+<h2 class="text-2xl font-bold mb-4">Analysis Results</h2>
+<p class="mb-4">
+  The report was generated from {{ min_date_started }} to {{ max_date_graduated
+  }}
+</p>
+
+<h3 class="text-xl font-semibold mb-2">
+  Employment Status Distribution by Course
+</h3>
+<div class="mb-8 max-w-full overflow-auto relative chart-container">
+  {{ employment_status_html|safe }}
+</div>
+<p class="mb-8">{{ narratives['employment_status'] }}</p>
+
+<h3 class="text-xl font-semibold mb-2">Job Title Distribution by Course</h3>
+<div class="mb-8 max-w-full overflow-auto relative chart-container">
+  {{ job_title_html|safe }}
+</div>
+<p class="mb-8">{{ narratives['job_title'] }}</p>
+
+<h3 class="text-xl font-semibold mb-2">Industry Type Distribution by Course</h3>
+<div class="mb-8 max-w-full overflow-auto relative chart-container">
+  {{ industry_type_html|safe }}
+</div>
+<p class="mb-8">{{ narratives['industry_type'] }}</p>
+
+<h3 class="text-xl font-semibold mb-2">Income Distribution by Course</h3>
+<div class="mb-8 max-w-full overflow-auto relative chart-container">
+  {{ income_dist_html|safe }}
+</div>
+<p class="mb-8">{{ narratives['income'] }}</p>
+
+<h3 class="text-xl font-semibold mb-2">Average Job Satisfaction by Course</h3>
+<div class="mb-8 max-w-full overflow-auto relative chart-container">
+  {{ job_satisfaction_html|safe }}
+</div>
+<p class="mb-8">{{ narratives['job_satisfaction'] }}</p>
+
+<style>
+  .chart-tooltips {
+    display: flex;
+    gap: 10px;
+  }
+
+  .chart-tooltips i {
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+
+  .chart-container {
+    position: relative;
+  }
+
+  .modebar-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .modebar-group {
+    display: flex;
+    gap: 5px;
+  }
+
+  .modebar-group .modebar-btn {
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+</style>
+
+{% endblock %}

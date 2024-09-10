@@ -1,0 +1,89 @@
+{% extends "base.html" %} {% block title %} eTracing V.1 - Predictive Analysis
+{% endblock %} {% block content %}
+<h2 class="text-2xl font-bold mb-4">Predictive Analysis Report</h2>
+
+<div class="mb-8 max-w-full overflow-auto relative chart-container">
+  <h3 class="text-xl font-semibold">Employment Status Prediction</h3>
+  <p>{{ insights['employment'] }}</p>
+  <h4 class="text-lg font-medium">Recommendations</h4>
+  <p>{{ recommendations['employment'] }}</p>
+  {% if recommendations['employment_details'] %}
+  <p>{{ recommendations['employment_details'] }}</p>
+  <ul>
+    {% for course, reason in recommendations['employment_reasons'].items() %}
+    <li>{{ course }}: {{ reason }}</li>
+    {% endfor %}
+  </ul>
+  {% if recommendations['employment_course_details'] %}
+  <h4 class="text-lg font-medium">Course Breakdown</h4>
+  <ul>
+    {% for course, detail in
+    recommendations['employment_course_details'].items() %}
+    <li>{{ course }}: {{ detail }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %} {% endif %}
+</div>
+
+<div class="mb-8 max-w-full overflow-auto relative chart-container">
+  <h3 class="text-xl font-semibold">Employment Trends by Course</h3>
+  {{ employment_trends_fig|safe }}
+</div>
+
+<div class="mb-8 max-w-full overflow-auto relative chart-container">
+  <h3 class="text-xl font-semibold">Job Satisfaction Prediction</h3>
+  <p>{{ insights['satisfaction'] }}</p>
+  <h4 class="text-lg font-medium">Recommendations</h4>
+  <p>{{ recommendations['satisfaction'] }}</p>
+  {% if recommendations['satisfaction_details'] %}
+  <p>{{ recommendations['satisfaction_details'] }}</p>
+  <ul>
+    {% for course, reason in recommendations['satisfaction_reasons'].items() %}
+    <li>{{ course }}: {{ reason }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+
+<div class="mb-8 max-w-full overflow-auto relative chart-container">
+  <h3 class="text-xl font-semibold">Job Satisfaction by Course</h3>
+  <p>{{ insights['satisfaction_by_course'] }}</p>
+  <img
+    src="{{ url_for('static', filename='average_job_satisfaction_by_course.png') }}"
+    alt="Average Job Satisfaction by Course"
+  />
+</div>
+
+<style>
+  .chart-tooltips {
+    display: flex;
+    gap: 10px;
+  }
+
+  .chart-tooltips i {
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+
+  .chart-container {
+    position: relative;
+  }
+
+  .modebar-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .modebar-group {
+    display: flex;
+    gap: 5px;
+  }
+
+  .modebar-group .modebar-btn {
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block title %}eTracing V.1 - Trend Analysis{%
+endblock %} {% block content %}
+<h2 class="text-2xl font-bold mb-4">Trend Analysis Report</h2>
+
+<div class="mb-8 max-w-full overflow-auto relative chart-container">
+  {{ trend_html|safe }}
+</div>
+<p class="mb-8">{{ narratives['trend_analysis']|safe }}</p>
+
+<style>
+  .chart-tooltips {
+    display: flex;
+    gap: 10px;
+  }
+
+  .chart-tooltips i {
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+
+  .chart-container {
+    position: relative;
+  }
+
+  .modebar-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .modebar-group {
+    display: flex;
+    gap: 5px;
+  }
+
+  .modebar-group .modebar-btn {
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+</style>
+{% endblock %}

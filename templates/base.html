@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}eTracing V.1{% endblock %}</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      .card {
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin: 0.5rem;
+      }
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+      @media (max-width: 640px) {
+        .card {
+          padding: 0.5rem;
+          margin: 0.25rem;
+        }
+        .card i {
+          font-size: 1rem;
+          margin-right: 0.5rem;
+        }
+        .card .fa-2x {
+          font-size: 1.25rem;
+        }
+        .card span {
+          font-size: 0.875rem;
+        }
+      }
+      .header-title {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+      .header-subtitle {
+        font-size: 1.25rem;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+    <header class="bg-blue-800 text-white py-8 shadow-md">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="header-title font-bold">
+          DIGITALIZATION OF EMPLOYABILITY TRACING SYSTEM IN GESTAAC INC v1
+        </h1>
+        <p class="header-subtitle mt-4">
+          This system helps track the employment status and trends of graduates
+          from GESTAAC Inc.
+        </p>
+      </div>
+    </header>
+    <!-- Modal for upload excel sheet -->
+    <div
+      id="uploadModal"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+    >
+      <div
+        class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full"
+      >
+        <div
+          class="bg-blue-800 px-4 py-3 text-white flex justify-between items-center"
+        >
+          <h2 class="text-lg font-semibold">Upload Graduate Data</h2>
+          <button class="text-white" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="p-6">
+          <form id="upload-form" enctype="multipart/form-data" method="post">
+            <input type="file" name="file" id="file-input" class="mb-4" />
+            <input
+              type="button"
+              value="Upload"
+              onclick="uploadFile()"
+              class="bg-blue-600 text-white py-2 px-4 rounded cursor-pointer"
+            />
+          </form>
+          <div id="cleaning-steps" class="mt-4 hidden">
+            <h3 class="text-xl font-semibold">Data Cleaning in Progress...</h3>
+            <ul id="steps-list" class="list-disc pl-5"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="bg-blue-700 text-white py-4 shadow-md">
+      <div class="container mx-auto px-4">
+        <ul
+          class="flex flex-col sm:flex-row sm:flex-wrap justify-center space-y-4 sm:space-y-0 sm:space-x-4"
+        >
+          <li>
+            <a
+              href="javascript:void(0)"
+              onclick="openModal()"
+              class="card bg-blue-600 hover:bg-blue-500 text-white py-2 sm:py-6 px-2 sm:px-8 rounded-lg flex items-center justify-center shadow-md w-full sm:w-auto text-center"
+            >
+              <i class="fas fa-upload fa-2x"></i>
+              <span>Upload Graduate Data</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="javascript:void(0)"
+              onclick="redirectToAnalyzePage('employment_status')"
+              class="card bg-blue-600 hover:bg-blue-500 text-white py-2 sm:py-6 px-2 sm:px-8 rounded-lg flex items-center justify-center shadow-md w-full sm:w-auto text-center"
+            >
+              <i class="fas fa-chart-bar fa-2x"></i>
+              <span>Employment Status Report</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="javascript:void(0)"
+              onclick="redirectToAnalyzePage('trend_analysis')"
+              class="card bg-blue-600 hover:bg-blue-500 text-white py-2 sm:py-6 px-2 sm:px-8 rounded-lg flex items-center justify-center shadow-md w-full sm:w-auto text-center"
+            >
+              <i class="fas fa-chart-line fa-2x"></i>
+              <span>Trend Analysis Report</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="javascript:void(0)"
+              onclick="redirectToAnalyzePage('predictive_insights')"
+              class="card bg-blue-600 hover:bg-blue-500 text-white py-2 sm:py-6 px-2 sm:px-8 rounded-lg flex items-center justify-center shadow-md w-full sm:w-auto text-center"
+            >
+              <i class="fas fa-lightbulb fa-2x"></i>
+              <span>Predictive Insights Report</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="javascript:void(0)"
+              onclick="redirectToAnalyzePage('data_quality')"
+              class="card bg-blue-600 hover:bg-blue-500 text-white py-2 sm:py-6 px-2 sm:px-8 rounded-lg flex items-center justify-center shadow-md w-full sm:w-auto text-center"
+            >
+              <i class="fas fa-database fa-2x"></i>
+              <span>Data Quality Report</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main class="flex-grow container mx-auto px-4 py-8">
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer bg-blue-800 text-white py-4 text-center">
+      <p>&copy; 2024 GESTAAC Inc. All rights reserved.</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+    <script>
+      function redirectToAnalyzePage(reportType) {
+        fetch(`/analyze_page/${reportType}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (!data.success) {
+              alert(data.message);
+            } else {
+              window.location.href = data.url;
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+    </script>
+  </body>
+</html>

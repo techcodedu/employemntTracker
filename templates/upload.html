@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block title %}Upload Graduate Data{% endblock %} {%
+block content %}
+<div class="container mx-auto py-8">
+  <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-6">Upload Graduate Data</h1>
+    <form id="upload-form" enctype="multipart/form-data" method="post">
+      <input type="file" name="file" id="file-input" class="mb-4" />
+      <input
+        type="button"
+        value="Upload"
+        onclick="uploadFile()"
+        class="bg-blue-600 text-white py-2 px-4 rounded cursor-pointer"
+      />
+    </form>
+    <div id="cleaning-steps" class="mt-4 hidden">
+      <h2 class="text-xl font-semibold">Data Cleaning in Progress...</h2>
+      <ul id="steps-list" class="list-disc pl-5"></ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

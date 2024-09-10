@@ -1,0 +1,6 @@
+{% extends "base.html" %} {% block title %}eTracing V.1 - Home{% endblock %} {%
+block content %} {% if no_file %}
+<div id="alert-placeholder" class="alert alert-warning">
+  No file uploaded yet. Please upload a file to analyze.
+</div>
+{% endif %} {% endblock %}
